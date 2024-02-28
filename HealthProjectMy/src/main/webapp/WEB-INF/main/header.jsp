@@ -176,7 +176,7 @@
                                 <li><a href="#">칼로리 처방 받기</a></li>
                             </ul>
                         </li>
-                        <li><a href="./shop.html">예약</a>
+                        <li><a href="../goods/goodsBuy.do">예약</a>
                         	<ul class="dropdown">
                                 <li><a href="#">회원권</a></li>
                                 <li><a href="#">스포츠센터 예약</a></li>
@@ -213,9 +213,9 @@
                             </ul>
                         </li>
                         <%-- <c:if test="${sessionScope.authority=='ROLE_ADMIN'}"> --%>
-                        <li><a href="../mypage/mypage.do">마이페이지메뉴</a>
+                        <li><a href="../mypage/mypage_main1.do">마이페이지메뉴</a>
                         	<ul class="dropdown">
-                                <li><a href="../admin/member.do">회원관리</a></li>
+                                <li><a href="../mypage/mypage.do">예약</a></li>
                                 <li><a href="./shopping-cart.html">게시판관리</a></li>
                             </ul>
                         </li>

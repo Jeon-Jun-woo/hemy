@@ -224,4 +224,17 @@ public class GymRestController {
 		String json=mapper.writeValueAsString(map); // vo에서 map으로 받음
 		return json; // response.data
 	}
+	
+	
+	
+	//footer jym
+	
+	@GetMapping(value = "gym/footer.do",produces = "text/plain; charset=UTF-8")
+	public String gym_footer() throws Exception
+	{
+		List<GymVO> list=service.gymTop7();
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(list);
+		return json;
+	}
 }

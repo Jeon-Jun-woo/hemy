@@ -17,6 +17,8 @@ public class NgoodsRestController {
 	@Autowired 
 	private NgoodsService service;
 	
+	@Autowired
+	private NreplyService rService;
 	
 	@GetMapping(value = "goods/goods_list_vue.do",produces = "text/plain;charset=UTF-8")
 	public String goods_list(int page,String fd,int type) throws Exception
@@ -121,8 +123,14 @@ public class NgoodsRestController {
 	 public String goods_detail_vue(int gno) throws Exception
 	 {
 		   NgoodsVO vo=service.goodsDetailData(gno);
+		   List<NreplyVO> list=rService.replyListData(gno);
+		   int rCount=rService.replyCount(gno);
+		   Map map=new HashMap();
+		   map.put("detail_data", vo);
+		   map.put("reply_list", list);
+		   map.put("rCount", rCount);
 		   ObjectMapper mapper=new ObjectMapper();
-		   String json=mapper.writeValueAsString(vo);
+		   String json=mapper.writeValueAsString(map);
 		   return json; // response.data
 	 }
 	

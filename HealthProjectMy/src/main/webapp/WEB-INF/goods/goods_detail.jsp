@@ -38,7 +38,7 @@ td.text-right h3{
 	color: red;
 	font-weight: bold;
 }
-table.table1 h3{
+table.table h3{
 	color: red;
 	font-weight: bold;
 }
@@ -54,6 +54,9 @@ div.col h5{
 div.col h6{
 	font-weight: bold;
 	color:gray;
+}
+table.tabled td{
+	background-color: gray;
 }
 </style>
 </head>
@@ -84,15 +87,18 @@ div.col h6{
 	             <img :src="goods_detail.poster" style="height: 500px">
 	         </td>
 	       </tr>
-	       <table class="table1">
+	       
+       	 </table>
+       	 <table class="table">
 	         <tr>
-	           <th>리뷰수</th>
-	           <td><h3>???</h3></td>
+	           <th>총 리뷰수</th>
+	           <td>
+	             <input type=text v-model="r_count">
+	           </td>
 	           <th>찜수</th>
 	           <td><h3>???</h3></td>
 	         </tr>
 	       </table>
-       	 </table>
        </div>
        <div class="col">
            <table class="table">
@@ -108,11 +114,34 @@ div.col h6{
 	       <tr>
 	         <td class="text-right"><h3>{{goods_detail.price}}원</h3></td>
 	       </tr>
-	       <table class="table2" style="">
-	         <tr>
-	          <td>goods_detail.</td>
-	         </tr>
-	       </table>
+       	 </table>
+       	 <table class="table">
+       	      <tr>
+			      <td width="65%">
+					  수량:<select id="sel">
+						  <option value="1">1개</option>
+						  <option value="2">2개</option>
+						  <option value="3">3개</option>
+						  <option value="4">4개</option>
+						  <option value="5">5개</option>
+					  </select>
+				  </td>
+			  </tr>
+			  <tr>
+			   <td width="65%" class="text-right">
+			    총구매액:<span id="total">${vo.price }</span>원
+			   </td>
+			  </tr>
+			  <tr>
+				  <td width="65%" class="text-right">
+				    
+					  <input type="button" value="장바구니" id="cart" data-no="${vo.no }" data-type="${ type}">
+					  <input type="button" value="바로구매" id="buy">
+					  <input type="button" value="목록" id="cart"
+					   onclick="javascript:history.back()"
+					  >
+				  </td>
+			  </tr>
        	 </table>
        </div>
       </div>
@@ -121,13 +150,83 @@ div.col h6{
 		    <li class="active"><a href="#">상세 정보</a></li>
 		    <li><a href="#">리뷰</a></li>
 		    <li><a href="#">Q&A</a></li>
-		    <li><a href="#">약국지도</a></li>
+		    <li><a href="#">약국검색</a></li>
 		  </ul>
       </div>
       <div class="row">
-        asdsasfafafa
-        afssaffsaf
-        fasfas
+        <table class="table">
+          <tr>
+           <td width="20%" style="color: gray;background-color: #ECECEC">한글제품명</td>
+           <td>{{goods_detail.kname}}</td>
+          </tr>
+          <tr>
+           <td width="20%" style="color: gray;background-color: #ECECEC">영문제품명</td>
+           <td>{{goods_detail.ename}}</td>
+          </tr>
+          <tr>
+           <td width="20%" style="color: gray;background-color: #ECECEC">용량/수량</td>
+           <td>{{goods_detail.eatSize}}</td>
+          </tr>
+          <tr>
+           <td width="20%" style="color: gray;background-color: #ECECEC">제조사</td>
+           <td>{{goods_detail.brand1}}</td>
+          </tr>
+          <tr>
+           <td width="20%" style="color: gray;background-color: #ECECEC">섭취 방법</td>
+           <td>{{goods_detail.eatUse}}</td>
+          </tr>
+          <tr>
+           <td width="20%" style="color: gray;background-color: #ECECEC">주의 사항</td>
+           <td>{{goods_detail.caution}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="row">
+       <h1>상품 리뷰</h1>
+       <table class="table">
+	     <tr>
+	      <td>
+	        <table class="table" v-for="rvo in reply_list">
+	         <tr>
+	          <td class="text-left">◑{{rvo.userName}}({{rvo.dbday}})</td>
+	          <td class="text-right">
+	           <span class="inline" v-if="rvo.userId===sessionId">
+	            <input type=button class="btn-xs btn-danger" value="수정" @click="updateForm(rvo.no)" :id="'up'+rvo.no">&nbsp;
+	            <input type=button class="btn-xs btn-info" value="삭제" @click="replyDelete(rvo.no)">
+	           </span>
+	          </td>
+	         </tr>
+	         <tr>
+	           <td colspan="2" class="text-left" valign="top">
+	            <pre style="white-space: pre-wrap;background-color: white;border:none">{{rvo.msg}}</pre>
+	           </td>
+	         </tr>
+	         <tr style="display:none" :id="'u'+rvo.no" class="ups">
+		       <td colspan="2">
+		         <textarea rows="4" cols="85" :id="'u_msg'+rvo.no" style="float: left">{{rvo.msg}}</textarea>
+		         <input type=button value="댓글수정" class="btn-danger"
+		          style="float: left;width: 80px;height: 86px" @click="replyUpdate(rvo.no)">
+		       </td>
+		      </tr>
+	        </table>
+	      </td>
+	     </tr>
+	    </table>
+	    <table class="table" v-if="sessionId">
+	      <tr>
+	       <td>
+	         <textarea rows="4" cols="85" ref="msg" style="float: left" v-model="msg"></textarea>
+	         <input type=button value="리뷰작성" class="btn-danger"
+	          style="float: left;width: 80px;height: 86px" @click="replyInsert()">
+	       </td>
+	      </tr>
+	    </table>
+      </div>
+      <div class="row">
+       <h1>Q&A</h1>
+      </div>
+      <div class="row">
+        <div id="map" style="width:700px;height:700px;"></div>
       </div>
     <div class="one_third"> 
        <!--<div id="map" style="width:100%;height:350px;"></div>-->
@@ -141,7 +240,13 @@ div.col h6{
 	  data(){
 		  return {
 			  goods_detail:{},
-			  gno:${gno}
+			  gno:${gno},
+			  isShow:false,
+		      reply_list:[],
+		      sessionId:'${sessionScope.userId}',
+		      msg:'',
+		      u:0,
+		      r_count:0
 		  }
 	  },
 	  mounted(){
@@ -151,8 +256,9 @@ div.col h6{
 			  }
 		  }).then(response=>{
 			  console.log(response.data)
-			  this.goods_detail=response.data
-			  
+			  this.reply_list=response.data.reply_list
+			  this.goods_detail=response.data.detail_data
+			  this.r_count=response.data.rCount
 			  if(window.kakao && window.kakao.maps)
 			  {
 				  this.initMap()
@@ -164,6 +270,67 @@ div.col h6{
 		  })
 	  },
 	  methods:{
+		  replyUpdate(no){
+	    		 let msg=$('#u_msg'+no).val()
+	    		 //alert(msg)
+	    		 axios.post('../recipe/reply_update_vue.do',null,{
+	    			 params:{
+	    				 no:no,
+	    				 gno:this.gno,
+	    				 msg:msg
+	    			 }
+	    		 }).then(response=>{
+	    			 this.reply_list=response.data
+	    			 $('#u'+no).hide("slow")
+	    			 $('#up'+no).val('수정')
+	    		 })
+	    	 },
+	    	 updateForm(no){
+	    		$('.ups').hide();
+	    		$('#up'+no).val('수정')
+	    		if(this.u==0)
+	    		{
+	    		    this.u=1;
+	    		    $('#u'+no).show();
+	    		    $('#up'+no).val('취소')
+	    		    
+	    		}
+	    		else
+	    		{
+	    			this.u=0;
+	    			$('#u'+no).hide();
+	    		    $('#up'+no).val('수정')
+	    		}
+	    	 },
+	    	 replyDelete(no){
+	    		axios.get('../recipe/reply_delete_vue.do',{
+	    		  params:
+	    			  {
+	    			      no:no,
+	    			      gno:this.gno
+	    			  }
+	    			
+	    		}).then(response=>{
+	    			this.reply_list=response.data
+	    		}) 
+	    	 },
+	    	 replyInsert(){
+	    		if(this.msg==="")
+	    		{
+	    			this.$refs.msg.focus()
+	    			return
+	    		}
+	    		
+	    		axios.post('../recipe/reply_insert_vue.do',null,{
+	    			params:{
+	    				gno:this.gno,
+	    				msg:this.msg
+	    			}
+	    		}).then(response=>{
+	    			this.reply_list=response.data
+	    			this.msg=''
+	    		})
+	    	 },
 		  addScript(){
 			  const script=document.createElement("script")
 			  

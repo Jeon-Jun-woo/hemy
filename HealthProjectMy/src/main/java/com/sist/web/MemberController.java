@@ -29,11 +29,18 @@ public class MemberController {
     @Autowired
     private MailManager mm;
     
+    
+    
+    
     @GetMapping("member/join.do")
     public String member_join()
     {
     	return "member/join";
     }
+    
+   
+    
+    
     
     @PostMapping("member/join_ok.do")
     public String member_join_ok(MemberVO vo)

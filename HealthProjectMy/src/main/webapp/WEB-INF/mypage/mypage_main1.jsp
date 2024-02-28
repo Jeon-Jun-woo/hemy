@@ -21,7 +21,8 @@
                         <div class="blog-catagory">
                             <h4>Categories</h4>
                             <ul>
-                                <li><a href="#">회원관리</a></li>
+                                <li><a href="../member/update.do">회원수정</a></li>
+                                <li><a href="#">회원탈퇴</a></li>
                                 <li><a href="#">찜목록</a></li>
                                 <li><a href="#">스키/보드/스케이트보드/서핑/수영</a></li>
                                 <li><a href="#">볼링/탁구/테니스</a></li>
@@ -54,30 +55,6 @@
                             </div>
                         </div>
                     </div>
-<script>
-let SomoimApp=Vue.createApp({
-	data(){
-		return{
-			cookie_list:[]
-		}
-	},
-	mounted(){
-		this.dataRecv()
-	},
-	updated(){
-		  
-	  },
-	methods:{
-		// 공통으로 사용되는 함수 => 반복제거 
-		  dataRecv(){
-			  axios.get('../somoim/cookie_vue.do').then(response=>{
-				  console.log(response.data)
-				  this.cookie_list=response.data
-			  })
-		}
-	}
-}).mount("#ListMenu")            
-</script>
                 
 </body>
 </html>

@@ -25,6 +25,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.sist.vo.FreeBoardVO;
 import com.sist.vo.MemberVO;
 
 public interface MemberMapper {
@@ -73,6 +74,35 @@ public interface MemberMapper {
 			  +"WHERE userId=#{userId}")
 	public MemberVO memberSessionInfoData(String userId);
     
+    @Update("UPDATE hhfinalMember SET "
+  		  +"userName=#{userName},sex=#{sex},birthday=#{birthday},email=#{email},post=#{post},addr1=#{addr1},"
+  		  +"addr2=#{addr2},content=#{content} "
+  		  +"WHERE userId=#{userId}")
+     public void memberUpdate(MemberVO vo);
+     // 삭제 
+     @Select("SELECT userPwd FROM hhfinalMember "
+  		  +"WHERE userId=#{userId}")
+     public String memberGetPassword(String userId);
+    
+    ////////////////////////////////////////02-27 19:54///////////////////////////////
+    @Select("SELECT userId,userName,userPwd,sex,birthday,email,post,"
+    		+ "addr1,addr2,content "
+    		+ "FROM hhfinalMember "
+    		+ "WHERE userId=#{userId}")
+    public MemberVO memberUpdateData(String userId);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
    //선미 추가 부분 (관리자 메뉴) 회원목록
     @Select("SELECT userId, username, sex, birthday, email, addr1, addr2, phone, TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI:SS') as reg_dbday, somoimno, nickname, num "
 		    + "FROM (SELECT userId, username, sex, birthday, email, addr1, addr2, phone, regdate, somoimno, nickname, rownum as num "
@@ -89,6 +119,8 @@ public interface MemberMapper {
 		   +"TO_CHAR(lastLogin, 'YYYY-MM-DD HH24:MI:SS') as last_dbday,somoimno,somoimadmin,poster,nickname "
 		   +"FROM hhfinalmember WHERE userid=#{userid}")
 	public MemberVO memberDetailData(String userid);
+	
+
 }
 
 

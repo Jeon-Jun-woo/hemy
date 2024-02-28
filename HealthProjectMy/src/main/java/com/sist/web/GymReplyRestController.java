@@ -57,4 +57,5 @@ public class GymReplyRestController {
 		grService.gymReplyDelete(no);
 		return commonsReplyData(gno);
 	}
+	
 }

@@ -14,6 +14,9 @@
 a.link:hover,img.img_click:hover{
   cursor: pointer;
 }
+div.col-lg-2 h4{
+	font-weight: bold;	
+}
 .section1{
    height: 1480px;
 } 
@@ -134,7 +137,7 @@ h4{
                         </div> -->
                     </div>
                     <div class="filter-widget">
-                        <h4 class="fw-title">가격</h4>
+                        <h4 class="fw-title">약국 찾기</h4>
                         <div class="filter-range-wrap">
                             <div class="range-slider">
                                 <div class="price-input">

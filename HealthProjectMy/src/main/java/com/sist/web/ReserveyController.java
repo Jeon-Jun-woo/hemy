@@ -28,4 +28,9 @@ public class ReserveyController {
 	{
 		return "adminpage/admin_main";
 	}
+	
+	
+	
+	
+	
 }

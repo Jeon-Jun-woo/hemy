@@ -40,4 +40,16 @@ public class NgoodsController {
 		   model.addAttribute("gno", gno);
 		   return "goods/goods_detail";   
 	}
+	
+	
+	
+	
+	//////////////////////////////buy
+	
+	@GetMapping("goods/goodsBuy.do")
+	public String goods_buy()
+	{
+		return "goods/goodsBuy";
+	}
+
 }

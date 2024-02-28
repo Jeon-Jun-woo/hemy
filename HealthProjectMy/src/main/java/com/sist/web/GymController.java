@@ -50,6 +50,7 @@ public class GymController {
 		return "gym/gym_list_detail"; 
 	}
 	
+	
 //	@GetMapping("recipe/recipe_test.do")
 //	public String food_test()
 //	{

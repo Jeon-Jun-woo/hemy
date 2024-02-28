@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <style type="text/css">
 	.title{
 		color: white;
@@ -16,7 +18,7 @@
 <body>
   <!-- Footer Section Begin -->
     <footer class="footer-section">
-        <div class="container">
+        <div class="container" id="gymApp">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="footer-left">
@@ -32,9 +34,7 @@
                     <div class="footer-widget">
                         <h3 class="title">실시간 인기 헬스장</h3>
                         <ul>
-                            <c:forEach var="vo" items="${gList }">
-					      	  <li><a href="#">${vo.title }</a></li>
-					      	</c:forEach>
+					      	  <li v-for="vo in gym_list"><a :href="'../gym/gym_before_list_detail.do?no='+vo.no">${{vo.title }}</a></li>     	
                         </ul>
                     </div>
                 </div>
@@ -70,5 +70,27 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
     <!-- Footer Section End -->
+    <script>
+	  let gymApp=Vue.createApp({
+		  // 데이터 관리 => 멤버변수 => this.
+		  data(){
+			  return {
+				  gym_list:[],
+				  no:0
+			  }
+		  },
+		  mounted(){
+				axios.get('../gym/footer.do'})
+				.then(response=>{
+					console.log(response.data)
+					this.gym_list=response.data
+					this.no=response.data.no
+				})
+		  },
+		  methods:{
+		  
+		  }
+	  }).mount("#gymApp")
+	</script>
 </body>
 </html>

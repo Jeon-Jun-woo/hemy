@@ -1,5 +1,6 @@
 package com.sist.dao;
 
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -68,6 +69,22 @@ public class MemberDAO {
 	{
 		return mapper.memberSessionInfoData(userId);
 	}
+	/////////////////////////////
+	public MemberVO memberUpdateData(String userId)
+	{
+		return mapper.memberUpdateData(userId);
+	}
+	
+	public String memberUpdate(MemberVO vo)
+	{
+		String result="yes";
+		mapper.memberUpdate(vo);
+		System.out.println(result);
+		
+		 return result;
+	}
+
+	
 	
 	//선미 추가 부분 (관리자메뉴 - 회원목록)
 	public List<MemberVO> memberListData(Map map)
