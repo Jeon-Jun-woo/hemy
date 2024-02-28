@@ -65,12 +65,10 @@ h4{
 	<div class="container container1">
             <div class="inner-header">
                 <div class="row">
-                    <div class="col-lg-3 col-md-3">
-            
-                    </div>
-                    <div class="col-lg-6 col-md-6">
+                    
+                    <div class="col-lg-7 col-md-7">
                         <div class="advanced-search">
-                            <!-- <button type="button" class="category-btn">All Categories</button> -->
+                            <button type="button" class="category-btn">전체보기</button>
                             <div class="input-group">
                                 <input type="text" placeholder="검색어 입력" ref="fd" v-model="fd" @keyup.enter="find()">
                                 <button type="button"><i class="ti-search" @click="find()"></i></button>
@@ -293,7 +291,7 @@ h4{
 	  data(){
 		return {
 			goods_list:[],
-			fd:'가',
+			fd:'오메가',
 			goods_detail:{},
 			page_list:{},
 			gno:1,

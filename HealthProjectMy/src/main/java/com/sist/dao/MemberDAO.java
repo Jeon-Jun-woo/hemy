@@ -84,7 +84,12 @@ public class MemberDAO {
 		 return result;
 	}
 
-	
+	public String memberDelete(String userId)
+	{
+		String result="yes";
+		mapper.memberDelete(userId);
+		return result;
+	}
 	
 	//선미 추가 부분 (관리자메뉴 - 회원목록)
 	public List<MemberVO> memberListData(Map map)

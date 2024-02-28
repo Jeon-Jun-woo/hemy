@@ -66,9 +66,11 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.memberUpdate(vo);
 	}
 	
-	
-	
-	
+	@Override
+	public String memberDelete(String userId) {
+		// TODO Auto-generated method stub
+		return mDao.memberDelete(userId);
+	}
 	
 	
 	
@@ -98,7 +100,4 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.memberUpdateData(userId);
 	}
 
-	
-	
-	
 }

@@ -17,25 +17,13 @@ public interface MemberService {
 	//
 	public MemberVO memberUpdateData(String userId);
 	public String memberUpdate(MemberVO vo);
+	public String memberDelete(String userId);
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 	//선미추가부분
 	public List<MemberVO> memberListData(Map map);
 	public int memberTotalData();

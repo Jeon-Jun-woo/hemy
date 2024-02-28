@@ -25,8 +25,8 @@
         </div>
     </div>
   <div class="wrapper row3" id="updateApp">
-    <main class="container clear"> 
-      <h2 class="sectiontitle">회원가입</h2>
+    <main class="container clear">
+      <h2 class="sectiontitle">회원정보수정</h2>
       <table class="table">
        <tr>
         <th width=15% class="text-center">ID</th>
@@ -92,8 +92,9 @@
        </tr>
        <tr>
          <td colspan="2" class="text-center inline">
-           <input type=button value="수정" class="btn-sm btn-success" @click="update()">
-           <input type=button value="취소" class="btn-sm btn-info" @click="goback()">
+           <input type=button value="수정" class="btn-sm btn-success" @click="update()">&nbsp;
+           <input type=button value="취소" class="btn-sm btn-info" @click="goback()">&nbsp;
+           <input type=button value="회원탈퇴" class="btn-xs btn-danger" @click="mDelete()">
          </td>
        </tr>
       </table>
@@ -168,6 +169,24 @@
 			   }).catch(error => {
 				   alert("에러가 발생했습니다: " + error.message);
 				   });
+		   },
+		   mDelete(){
+			   // delete_vue.do?no=1&pwd=1234
+			   axios.get('../delete_vue.do',{
+				   params:{
+					   userId:this.userId
+				   }
+			   }).then(response=>{
+				   if(response.data==="yes")
+				   {
+					   alert("회원탈퇴 되셨습니다!!")
+					   location.href="../mypage/mypage_main1.do";
+				   }
+				   else
+				   {
+
+				   }
+			   })
 		   }
 	   }
    }).mount("#updateApp")

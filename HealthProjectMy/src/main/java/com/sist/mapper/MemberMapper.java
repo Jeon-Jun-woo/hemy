@@ -21,6 +21,7 @@ package com.sist.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -90,6 +91,10 @@ public interface MemberMapper {
     		+ "FROM hhfinalMember "
     		+ "WHERE userId=#{userId}")
     public MemberVO memberUpdateData(String userId);
+    
+    @Delete("DELETE FROM hhfinalMember "
+  		  +"WHERE userId=#{userId}")
+     public void memberDelete(String userId);
     
     
     

@@ -92,9 +92,7 @@ table.tabled td{
        	 <table class="table">
 	         <tr>
 	           <th>총 리뷰수</th>
-	           <td>
-	             <input type=text v-model="r_count">
-	           </td>
+	           <td><h3>{{r_count}}</h3></td>
 	           <th>찜수</th>
 	           <td><h3>???</h3></td>
 	         </tr>
@@ -133,13 +131,13 @@ table.tabled td{
 			   </td>
 			  </tr>
 			  <tr>
+			  	  <td>
+			  	   <span :class="jjim_count==1?'btn btn-sm btn-danger':'btn btn-sm btn-default'" v-text="jjim_count==0?'찜등록':'찜해제'"></span>
+			  	  </td>
 				  <td width="65%" class="text-right">
-				    
-					  <input type="button" value="장바구니" id="cart" data-no="${vo.no }" data-type="${ type}">
-					  <input type="button" value="바로구매" id="buy">
-					  <input type="button" value="목록" id="cart"
-					   onclick="javascript:history.back()"
-					  >
+				      <span class="btn btn-sm btn-danger">장바구니</span> 
+				      <span class="btn btn-sm btn-success">바로구매</span> 
+				      <span class="btn btn-sm btn-info" onclick="javascript:history.back()">목록</span> 
 				  </td>
 			  </tr>
        	 </table>
@@ -228,9 +226,6 @@ table.tabled td{
       <div class="row">
         <div id="map" style="width:700px;height:700px;"></div>
       </div>
-    <div class="one_third"> 
-       <!--<div id="map" style="width:100%;height:350px;"></div>-->
-    </div>
     <div class="clear"></div>
     
   </main>
@@ -246,7 +241,8 @@ table.tabled td{
 		      sessionId:'${sessionScope.userId}',
 		      msg:'',
 		      u:0,
-		      r_count:0
+		      r_count:0,
+		      jjim_count:0
 		  }
 	  },
 	  mounted(){
@@ -270,6 +266,43 @@ table.tabled td{
 		  })
 	  },
 	  methods:{
+		  jjim(gno){
+			  axios.post('../goods/jjim.do',null,{
+				  params:{
+					  gno:gno
+				  }
+			  }).then(response=>{
+				  this.jjim_count=response.data.jjim_count
+				  if(response.data=="yes")
+				  {
+					  //찜하고 화면 
+					  alert("찜 성공")
+					  axios.get('../goods/goods_detail_vue.do',{
+						  params:{
+							  gno:this.gno
+						  }
+					  }).then(response=>{
+						  console.log(response.data)
+						  this.reply_list=response.data.reply_list
+						  this.goods_detail=response.data.detail_data
+						  this.r_count=response.data.rCount
+						  if(window.kakao && window.kakao.maps)
+						  {
+							  this.initMap()
+						  }
+						  else
+						  {
+							  this.addScript()
+						  }
+					  })
+				  }
+				  else
+				  {
+					  alert("예약 승인에 실패하셨습니다!!")
+				  }
+					 
+			  })
+		  },
 		  replyUpdate(no){
 	    		 let msg=$('#u_msg'+no).val()
 	    		 //alert(msg)

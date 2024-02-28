@@ -30,8 +30,13 @@ public class MypageRestController {
 	@PostMapping(value="member/update_ok_vue.do",produces = "text/plain;charset=UTF-8")
 	public String member_update_ok(MemberVO vo)
 	{
-		   String result=mService.memberUpdate(vo);
-		   return result;
+		String result=mService.memberUpdate(vo);
+		return result;
 	}
-	
+	@GetMapping(value="delete_vue.do",produces = "text/plain;charset=UTF-8")
+	public String member_delete(String userId)
+	{
+		String result=mService.memberDelete(userId);
+		return result;
+	}
 }
